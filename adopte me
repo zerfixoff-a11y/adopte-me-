@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Génération des Miracles — Style Adopt Me</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Palette façon Adopt Me : pastel, rond, bonbon */
+  --bg1:#bfe9ff;        /* ciel pastel */
+  --bg2:#ffd9ef;        /* rose pastel */
+  --card:#ffffff;
+  --card-line:#2b2240;  /* contour "sticker" foncé */
+  --ink:#3a2f55;        /* texte principal violet foncé */
+  --ink-soft:#8479a3;   /* texte secondaire */
+  --pink:#ff6fa5;       /* accent principal */
+  --pink-d:#e0488a;
+  --pink-bg:#ffe3ef;
+  --purple:#7b5ee8;     /* accent violet (zone VIP) */
+  --purple-d:#5a3fc0;
+  --purple-bg:#ece7ff;
+  --blue:#46c6ff;       /* accent bleu */
+  --blue-bg:#e2f6ff;
+  --yellow:#ffc93c;     /* bucks / étoiles */
+  --green:#3ecf73;      /* succès */
+  --green-bg:#e3fbeb;
+  --red:#ff5c6c;        /* verrouillé / erreur */
+  --red-bg:#ffe6e8;
+  --grey-bg:#eef0fb;
+  --grey-line:#d8d9ee;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  min-height:100vh;font-family:'Nunito',sans-serif;
+  background:linear-gradient(160deg,var(--bg1) 0%,var(--bg2) 100%);
+  background-attachment:fixed;
+  color:var(--ink);
+  display:flex;align-items:flex-start;justify-content:center;
+  padding:48px 16px 100px;
+}
+.wrap{width:100%;max-width:640px;}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--purple-d);background:var(--purple-bg);
+  padding:6px 14px;border-radius:20px;margin-bottom:14px;
+  border:2px solid var(--purple);
+}
+h1.brand{
+  font-family:'Baloo 2',sans-serif;font-weight:800;
+  font-size:clamp(38px,8vw,58px);line-height:1.02;
+  color:var(--ink);margin-bottom:10px;
+  text-shadow:3px 3px 0 #fff, -1px -1px 0 rgba(255,255,255,.4);
+}
+h1.brand em{font-style:normal;color:var(--pink);}
+.sub{font-size:14.5px;color:var(--ink-soft);margin-bottom:36px;line-height:1.65;font-weight:700;}
+
+.panel{
+  background:var(--card);border:3px solid var(--card-line);
+  border-radius:28px;padding:30px clamp(20px,5.5vw,40px);
+  margin-bottom:18px;position:relative;
+  box-shadow:0 8px 0 rgba(58,47,85,.12),0 16px 30px rgba(58,47,85,.10);
+}
+.panel.red{border-color:var(--purple);}
+.ptitle{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;letter-spacing:.02em;text-transform:uppercase;
+  color:#fff;margin-bottom:20px;font-weight:800;
+  background:var(--pink);padding:6px 14px;border-radius:16px;
+}
+.panel.red .ptitle{background:var(--purple);}
+
+label{
+  display:block;font-size:12px;letter-spacing:.03em;text-transform:uppercase;
+  color:var(--ink-soft);margin:18px 0 6px;font-weight:800;
+}
+label:first-of-type{margin-top:0;}
+input[type=text],input[type=number]{
+  width:100%;background:var(--grey-bg);border:2.5px solid var(--grey-line);
+  border-radius:16px;padding:13px 16px;color:var(--ink);
+  font-size:15px;font-family:'Nunito',sans-serif;font-weight:700;outline:none;
+  transition:border-color .15s,background .15s;
+}
+input:focus{border-color:var(--pink);background:#fff;}
+.error{color:var(--red);font-size:13px;margin-top:10px;min-height:16px;font-weight:700;}
+
+.btn{
+  appearance:none;border:none;cursor:pointer;
+  font-family:'Baloo 2',sans-serif;font-size:15px;font-weight:700;
+  letter-spacing:.01em;
+  padding:13px 26px;border-radius:18px;
+  transition:transform .1s,filter .15s;
+  box-shadow:0 5px 0 rgba(0,0,0,.15);
+}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.15);}
+.btn-p{background:var(--pink);color:#fff;}
+.btn-p:hover{filter:brightness(1.06);}
+.btn-d{background:var(--purple);color:#fff;}
+.btn-d:hover{filter:brightness(1.08);}
+.btn-g{background:#fff;border:2.5px solid var(--grey-line);color:var(--ink-soft);box-shadow:none;}
+.btn-g:hover{border-color:var(--pink);color:var(--pink-d);}
+.btn:disabled{background:var(--grey-bg);color:#b9bbd6;cursor:not-allowed;box-shadow:none;}
+.btn-row{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap;}
+
+/* CAROUSEL */
+.char-carousel{overflow:hidden;border-radius:22px;margin-bottom:16px;}
+.char-track{display:flex;transition:transform .35s cubic-bezier(.4,0,.2,1);}
+.char-slide{
+  min-width:100%;display:flex;flex-direction:column;align-items:center;
+  padding:30px 20px 24px;background:linear-gradient(160deg,var(--blue-bg),var(--pink-bg));
+  border:2.5px solid var(--grey-line);border-radius:22px;gap:4px;
+}
+.ca{font-size:58px;line-height:1;margin-bottom:6px;filter:drop-shadow(0 4px 0 rgba(58,47,85,.12));}
+.cn{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:23px;color:var(--ink);}
+.cr{font-size:12px;font-weight:800;color:var(--pink-d);text-align:center;}
+.cage{font-size:12px;color:var(--ink-soft);font-weight:700;}
+.cteam{font-size:11px;padding:3px 12px;border:2px solid var(--purple);border-radius:20px;color:var(--purple-d);font-weight:800;background:#fff;}
+.char-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;}
+.char-arrow{
+  background:#fff;border:2.5px solid var(--grey-line);color:var(--ink-soft);
+  width:40px;height:40px;border-radius:14px;font-size:20px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .15s,color .15s;font-weight:800;
+}
+.char-arrow:hover{border-color:var(--pink);color:var(--pink-d);}
+.char-dots{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;flex:1;}
+.char-dot{width:7px;height:7px;border-radius:50%;background:var(--grey-line);cursor:pointer;transition:background .15s,transform .15s;}
+.char-dot.active{background:var(--pink);transform:scale(1.4);}
+.char-select-btn{
+  width:100%;margin-top:12px;padding:13px;border-radius:16px;
+  border:2.5px solid var(--pink);cursor:pointer;
+  font-family:'Baloo 2',sans-serif;font-weight:700;font-size:14px;
+  background:var(--pink-bg);color:var(--pink-d);
+  transition:background .15s,border-color .15s;
+}
+.char-select-btn:hover{background:#ffd3e7;}
+.char-select-btn.sel{background:var(--pink);color:#fff;border-color:var(--pink-d);}
+
+/* WELCOME BACK */
+.wb-name{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:30px;color:var(--ink);}
+.wb-role{font-size:12px;color:var(--pink-d);text-transform:uppercase;font-weight:800;margin-bottom:4px;letter-spacing:.03em;}
+.wb-info{font-size:13px;color:var(--ink-soft);margin-top:4px;font-weight:700;}
+.wb-actions{display:flex;flex-direction:column;gap:10px;margin-top:22px;}
+.wb-action{
+  padding:15px 18px;border-radius:18px;border:2.5px solid var(--grey-line);background:var(--grey-bg);
+  cursor:pointer;text-align:left;display:flex;align-items:center;gap:14px;
+  transition:border-color .15s,background .15s,transform .1s;
+}
+.wb-action:hover{border-color:var(--blue);background:var(--blue-bg);transform:translateY(-1px);}
+.wb-action-ico{font-size:24px;flex-shrink:0;}
+.wb-action-title{font-weight:800;font-size:14px;color:var(--ink);font-family:'Baloo 2',sans-serif;}
+.wb-action-desc{font-size:12px;color:var(--ink-soft);margin-top:3px;font-weight:700;}
+.wb-action.danger{border-color:#ffd0d5;background:var(--red-bg);}
+.wb-action.danger:hover{border-color:var(--red);}
+.wb-action.danger .wb-action-title{color:var(--red);}
+
+/* HUB */
+.hub-head{display:flex;align-items:center;gap:14px;margin-bottom:26px;}
+.hub-av{font-size:36px;background:var(--pink-bg);border:2.5px solid var(--pink);border-radius:16px;padding:6px 10px;}
+.hub-ey{font-size:12px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-soft);font-weight:800;}
+.hub-nm{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:22px;color:var(--ink);}
+.games{display:grid;gap:12px;}
+.game-card{
+  border:2.5px solid var(--grey-line);border-radius:22px;padding:22px 24px;
+  cursor:pointer;background:var(--grey-bg);transition:border-color .15s,background .15s,transform .1s;
+  position:relative;overflow:hidden;
+}
+.game-card:not(.locked):hover{border-color:var(--pink);background:var(--pink-bg);transform:translateY(-2px);}
+.game-card.locked{opacity:.55;cursor:not-allowed;}
+.gc-icon{font-size:30px;margin-bottom:8px;}
+.gc-title{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:19px;color:var(--ink);}
+.gc-desc{font-size:12.5px;color:var(--ink-soft);margin-top:5px;line-height:1.55;font-weight:700;}
+.gc-meta{margin-top:12px;}
+.pill{
+  display:inline-block;font-size:10px;text-transform:uppercase;font-weight:800;
+  letter-spacing:.05em;padding:4px 11px;border-radius:20px;
+  border:2px solid var(--grey-line);color:var(--ink-soft);background:#fff;
+}
+.pill.open{border-color:var(--blue);color:#1b8cc4;}
+.pill.done{border-color:var(--green);color:#23a85a;}
+
+/* LEVELS */
+.crumb-btn{
+  background:#fff;border:2.5px solid var(--grey-line);color:var(--ink-soft);
+  font-family:'Baloo 2',sans-serif;font-size:13px;font-weight:700;
+  padding:8px 16px;border-radius:14px;cursor:pointer;
+  transition:border-color .15s,color .15s;margin-bottom:16px;
+}
+.crumb-btn:hover{border-color:var(--pink);color:var(--pink-d);}
+.crumb-lbl{font-size:12px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:14px;font-weight:800;}
+.crumb-lbl b{color:var(--pink-d);}
+.levels{display:grid;gap:10px;}
+.level-card{
+  border:2.5px solid var(--grey-line);border-radius:20px;padding:16px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  cursor:pointer;background:var(--grey-bg);transition:border-color .15s,background .15s,transform .1s;
+}
+.level-card.locked{cursor:not-allowed;opacity:.5;}
+.level-card:not(.locked):hover{border-color:var(--pink);background:var(--pink-bg);transform:translateY(-1px);}
+.lnum{
+  font-size:34px;line-height:1;width:46px;text-align:center;
+}
+.level-card[data-s="open"]   .lnum::before{content:"🥚";}
+.level-card[data-s="done"]   .lnum::before{content:"🐣";}
+.level-card[data-s="locked"] .lnum::before{content:"🔒";font-size:24px;}
+.linfo{flex:1;}
+.ltitle{font-size:15px;font-weight:800;color:var(--ink);font-family:'Baloo 2',sans-serif;}
+.lmeta{font-size:12px;color:var(--ink-soft);margin-top:3px;font-weight:700;}
+.ltag{
+  font-size:10px;text-transform:uppercase;font-weight:800;
+  letter-spacing:.04em;padding:4px 11px;border-radius:20px;border:2px solid currentColor;white-space:nowrap;
+}
+.t-open{color:#1b8cc4;}
+.t-done{color:#23a85a;}
+.t-locked{color:#a9abc9;}
+
+/* QUIZ */
+.qprog{font-size:12px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px;font-weight:800;}
+.qbar{height:10px;background:var(--grey-bg);margin-bottom:26px;overflow:hidden;border-radius:20px;border:2px solid var(--grey-line);}
+.qbar-fill{height:100%;background:linear-gradient(90deg,var(--pink),var(--yellow));transition:width .3s;border-radius:20px;}
+.qtext{font-size:19px;line-height:1.4;font-weight:800;color:var(--ink);margin-bottom:22px;font-family:'Baloo 2',sans-serif;}
+.qquote{
+  font-family:'Baloo 2',sans-serif;font-weight:600;
+  font-size:clamp(20px,4vw,27px);line-height:1.35;color:var(--ink);
+  border-left:5px solid var(--pink);padding-left:16px;margin-bottom:8px;
+}
+.qwho{font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-soft);margin-bottom:20px;font-weight:800;}
+.options{display:grid;gap:10px;}
+.opt{
+  text-align:left;border:2.5px solid var(--grey-line);background:var(--grey-bg);
+  color:var(--ink);padding:14px 18px;border-radius:16px;cursor:pointer;
+  font-size:14.5px;font-family:'Nunito',sans-serif;font-weight:700;
+  transition:border-color .1s,background .1s,transform .1s;
+}
+.opt:hover{border-color:var(--blue);background:var(--blue-bg);transform:translateY(-1px);}
+.opt.correct{border-color:var(--green);background:var(--green-bg);color:#1d7a45;}
+.opt.wrong{border-color:var(--red);background:var(--red-bg);color:#c23a47;}
+.opt:disabled{cursor:default;}
+
+/* RESULT */
+.rlbl{font-size:12px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px;font-weight:800;}
+.rscore{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:54px;color:var(--pink);line-height:1;}
+.rstatus{font-size:14.5px;margin-top:10px;font-weight:800;}
+.ssend{font-size:12px;color:var(--ink-soft);margin-top:16px;font-weight:700;}
+.recap{margin-top:22px;border-top:2.5px dashed var(--grey-line);padding-top:16px;}
+.recap-item{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-size:13px;line-height:1.4;}
+.ri-icon{flex-shrink:0;width:20px;}
+.ri-icon.ok{color:var(--green);}
+.ri-icon.ko{color:var(--red);}
+.ri-q{color:var(--ink);font-weight:700;}
+.ri-a{color:var(--ink-soft);margin-top:2px;font-weight:600;}
+
+/* ZONE */
+.zone-card{border:2.5px solid var(--purple);border-radius:22px;padding:22px;background:var(--purple-bg);}
+.zone-title{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:20px;color:var(--purple-d);}
+.zone-desc{font-size:13.5px;color:var(--ink-soft);margin-top:8px;line-height:1.65;font-weight:700;}
+.wi-icon{font-size:40px;margin-bottom:12px;}
+.wi-title{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:20px;color:var(--ink);}
+.wi-text{color:var(--ink-soft);font-size:13.5px;margin-top:10px;line-height:1.65;font-weight:700;}
+.pulse{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--purple);margin-right:8px;animation:pulse 1.2s infinite;}
+@keyframes pulse{0%,100%{opacity:.25;}50%{opacity:1;}}
+
+/* FINAL */
+.tw{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.timer{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:24px;color:var(--purple);min-width:48px;text-align:right;}
+.timer.urgent{animation:pulse .5s infinite;color:var(--red);}
+.fr-title{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(24px,5vw,34px);line-height:1.2;margin-bottom:12px;}
+.fr-title.pass{color:var(--green);}
+.fr-title.fail{color:var(--red);}
+.fr-text{font-size:14.5px;color:var(--ink-soft);line-height:1.6;font-weight:700;}
+
+#zone-inline{margin-top:12px;}
+.hidden{display:none !important;}
+footer{text-align:center;color:var(--ink-soft);font-size:11px;margin-top:36px;font-weight:700;opacity:.7;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">🐾 Quiz Adoption · Édition spéciale</p>
+  <h1 class="brand">Generation<br>of <em>Miracles</em></h1>
+  <p class="sub">🥚 2 jeux, 3 œufs à faire éclore dans chacun. Et si tu vas jusqu'au bout — quelqu'un d'autre t'attend dans l'enclos VIP.</p>
+
+  <!-- WELCOME BACK -->
+  <section id="screen-wb" class="panel hidden">
+    <div id="wb-av" style="font-size:46px;margin-bottom:14px;"></div>
+    <p class="wb-role" id="wb-char"></p>
+    <p class="wb-name" id="wb-name"></p>
+    <p class="wb-info" id="wb-info"></p>
+    <div class="wb-actions">
+      <div class="wb-action" id="wb-continue">
+        <span class="wb-action-ico">▶️</span>
+        <div><div class="wb-action-title">Continuer</div><div class="wb-action-desc">Reprendre là où tu t'es arrêté</div></div>
+      </div>
+      <div class="wb-action" id="wb-new">
+        <span class="wb-action-ico">➕</span>
+        <div><div class="wb-action-title">Inscrire un autre joueur</div><div class="wb-action-desc">Créer un nouveau profil</div></div>
+      </div>
+      <div class="wb-action danger" id="wb-delete">
+        <span class="wb-action-ico">🗑️</span>
+        <div><div class="wb-action-title">Supprimer ce profil</div><div class="wb-action-desc">Effacer toute la progression</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAR SELECTION -->
+  <section id="screen-char" class="panel hidden">
+    <p class="ptitle">Étape 1 — Choisis ton personnage</p>
+    <p style="font-size:13px;color:var(--t2);margin-bottom:22px;">Fais défiler les joueurs et sélectionne celui qui te représente.</p>
+    <div class="char-carousel"><div class="char-track" id="char-track"></div></div>
+    <div class="char-nav">
+      <button class="char-arrow" id="char-prev">‹</button>
+      <div class="char-dots" id="char-dots"></div>
+      <button class="char-arrow" id="char-next">›</button>
+    </div>
+    <button class="char-select-btn" id="char-sel-btn">Choisir ce personnage</button>
+    <p class="error" id="char-err"></p>
+    <div class="btn-row">
+      <button class="btn btn-p" id="btn-char-next" disabled>Continuer →</button>
+    </div>
+  </section>
+
+  <!-- REGISTER -->
+  <section id="screen-reg" class="panel hidden">
+    <p class="ptitle">Étape 2 — Ton identité</p>
+    <div id="reg-recap" style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--s2);border:1px solid rgba(200,164,74,.18);border-radius:1px;margin-bottom:24px;">
+      <span id="reg-av" style="font-size:28px;"></span>
+      <div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:var(--t2);">Personnage choisi</div>
+        <div id="reg-char" style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:17px;text-transform:uppercase;color:var(--gold);"></div>
+      </div>
+    </div>
+    <label for="reg-nom">Nom</label>
+    <input id="reg-nom" type="text" placeholder="ex : Tetsuya" autocomplete="off">
+    <label for="reg-prenom">Prénom</label>
+    <input id="reg-prenom" type="text" placeholder="ex : Kuroko" autocomplete="off">
+    <label for="reg-age">Âge</label>
+    <input id="reg-age" type="number" min="1" max="120" placeholder="16">
+    <div class="btn-row">
+      <button class="btn btn-p" id="btn-register">Entrer sur le terrain</button>
+      <button class="btn btn-g" id="btn-reg-back">← Retour</button>
+    </div>
+    <p class="error" id="reg-err"></p>
+  </section>
+
+  <!-- HUB -->
+  <section id="screen-games" class="panel hidden">
+    <div class="hub-head">
+      <span class="hub-av" id="hub-av"></span>
+      <div>
+        <p class="hub-ey">Bienvenue</p>
+        <p class="hub-nm" id="hub-name"></p>
+      </div>
+    </div>
+    <div class="games" id="games-wrap"></div>
+  </section>
+
+  <!-- ZONE AOMINE -->
+  <section id="screen-zone" class="panel red hidden">
+    <p class="ptitle">✨ Enclos VIP — Daiki Aomine</p>
+    <div class="zone-card">
+      <p class="zone-desc">🐾 Envoie ton dossier d'adoption à Aomine Daiki. S'il estime que tu en vaux la peine, il te laissera tenter sa dernière épreuve — 10 questions, zéro droit à l'erreur, pour adopter l'œuf légendaire.</p>
+      <div class="btn-row">
+        <button class="btn btn-d" id="btn-send-aomine">📨 Envoyer mon dossier à Aomine</button>
+        <button class="btn btn-g" id="btn-zone-back">← Retour</button>
+      </div>
+      <p class="error" id="zone-err"></p>
+    </div>
+  </section>
+
+  <!-- WAITING -->
+  <section id="screen-wait" class="panel red hidden">
+    <div class="wi-icon">🥚</div>
+    <p class="wi-title"><span class="pulse"></span>En attente d'Aomine Daiki</p>
+    <p class="wi-text">Ton dossier vient d'être envoyé. Si Aomine Daiki t'accepte dans l'enclos VIP, il t'enverra un code sur Discord. Entre-le ici dès que tu l'as.</p>
+    <label for="access-code" style="margin-top:24px;">Code d'accès</label>
+    <input id="access-code" type="text" placeholder="••••••••">
+    <div class="btn-row">
+      <button class="btn btn-d" id="btn-unlock">Valider le code</button>
+    </div>
+    <p class="error" id="wait-err"></p>
+  </section>
+
+  <!-- FINAL INTRO -->
+  <section id="screen-fintro" class="panel red hidden">
+    <p class="ptitle">🌟 Tu es élu.</p>
+    <p style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(26px,5.5vw,36px);color:var(--purple-d);line-height:1.2;margin-bottom:14px;">10 questions.<br><em style="color:var(--pink);font-style:normal;">Zéro droit<br>à l'erreur.</em></p>
+    <p style="font-size:13.5px;color:var(--ink-soft);line-height:1.65;font-weight:700;">🥚 Extrêmement difficiles. Un temps limité par question pour adopter l'œuf légendaire.</p>
+    <div class="btn-row">
+      <button class="btn btn-d" id="btn-start-final">Relever le défi</button>
+    </div>
+  </section>
+
+  <!-- FINAL QUIZ -->
+  <section id="screen-fquiz" class="panel red hidden">
+    <div class="tw">
+      <p class="qprog" id="fq-prog" style="margin:0;"></p>
+      <span class="timer" id="fq-timer">15</span>
+    </div>
+    <div class="qbar"><div class="qbar-fill" id="fq-fill" style="background:var(--red);"></div></div>
+    <p class="qtext" id="fq-text"></p>
+    <div class="options" id="fq-opts"></div>
+  </section>
+
+  <!-- FINAL RESULT -->
+  <section id="screen-fres" class="panel red hidden">
+    <p class="fr-title" id="fr-title"></p>
+    <p class="fr-text"  id="fr-text"></p>
+    <p class="ssend"    id="fr-send"></p>
+    <div class="btn-row" style="margin-top:24px;">
+      <button class="btn btn-g" id="btn-fr-home">← Retour à l'accueil</button>
+    </div>
+  </section>
+
+  <!-- LEVELS -->
+  <section id="screen-levels" class="panel hidden">
+    <button class="crumb-btn" id="crumb-back">← Retour aux jeux</button>
+    <p class="crumb-lbl"><b id="crumb-game"></b></p>
+    <div class="levels" id="levels-wrap"></div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="screen-quiz" class="panel hidden">
+    <p class="qprog" id="q-prog"></p>
+    <div class="qbar"><div class="qbar-fill" id="q-fill"></div></div>
+    <div id="q-content"></div>
+    <div class="options" id="q-opts"></div>
+  </section>
+
+  <!-- RESULT -->
+  <section id="screen-result" class="panel hidden">
+    <p class="rlbl"   id="r-level"></p>
+    <p class="rscore" id="r-score"></p>
+    <p class="rstatus" id="r-status"></p>
+    <p class="ssend"  id="r-send"></p>
+    <div class="recap" id="recap"></div>
+    <div class="btn-row">
+      <button class="btn btn-p" id="btn-back-levels">Retour aux niveaux</button>
+      <button class="btn btn-g" id="btn-back-games">← Retour aux jeux</button>
+    </div>
+  </section>
+
+  <footer>🐾 Fan quiz non officiel — Kuroko no Basket © Tadatoshi Fujimaki / Shueisha</footer>
+</div>
+
+<script>
+const CONFIG={
+  DISCORD_WEBHOOK_URL:"https://discord.com/api/webhooks/1517605118051356744/AEtfwWoh1Bq6czzwOU6gIPl4X-Ui5l2bz3buRmhRhcllLEtwTe5jrQIy47ztz7Z7s63N",
+  FINAL_CODE:"AOMINE05"
+};
+
+const CHARS=[
+  {id:"shadow",   name:"Shadow Dragon",   av:"🐉", role:"Le dragon le plus convoité du jeu", age:"Légendaire", team:"Halloween 2019"},
+  {id:"frost",    name:"Frost Dragon",    av:"❄️", role:"L'icône glacée d'Adoption Island",   age:"Légendaire", team:"Noël 2019"},
+  {id:"bat",      name:"Bat Dragon",      av:"🦇", role:"Le dragon le plus précieux à échanger", age:"Légendaire", team:"Halloween 2019"},
+  {id:"unicorn",  name:"Unicorn",         av:"🦄", role:"Le visage historique d'Adopt Me",     age:"Légendaire", team:"Œuf Royal"},
+  {id:"evil-uni", name:"Evil Unicorn",    av:"🖤", role:"La jumelle sombre de la Licorne",      age:"Légendaire", team:"Halloween 2019"},
+  {id:"giraffe",  name:"Giraffe",         av:"🦒", role:"Star retirée de l'Œuf Safari",         age:"Légendaire", team:"Œuf Safari"},
+  {id:"owl",      name:"Owl",             av:"🦉", role:"Le favori nostalgique de la Ferme",    age:"Légendaire", team:"Œuf Fermier"},
+  {id:"parrot",   name:"Parrot",          av:"🦜", role:"Le plus coloré de la Jungle",          age:"Légendaire", team:"Œuf Jungle"},
+  {id:"crow",     name:"Crow",            av:"🐦‍⬛", role:"Discret mais très recherché",         age:"Légendaire", team:"Œuf Fermier"},
+  {id:"reindeer", name:"Arctic Reindeer",  av:"🦌", role:"L'élégance des fêtes de Noël",         age:"Légendaire", team:"Noël 2019"},
+  {id:"dragon",   name:"Dragon",          av:"🐲", role:"Le classique increvable du jeu",       age:"Légendaire", team:"Œuf Royal"},
+  {id:"griffin",  name:"Griffin",         av:"🦅", role:"Mi-lion, mi-aigle, toujours stylé",    age:"Légendaire", team:"Œuf Royal"},
+  {id:"kangaroo", name:"Kangaroo",        av:"🦘", role:"Le sauteur increvable de Safari",      age:"Légendaire", team:"Œuf Safari"},
+  {id:"queenbee", name:"Queen Bee",       av:"🐝", role:"La cheffe de la ruche",                age:"Légendaire", team:"Œuf Insecte"},
+  {id:"phoenix",  name:"Phoenix",         av:"🔥", role:"Renaît toujours de ses cendres",       age:"Légendaire", team:"Œuf Royal"},
+];
+
+const GAMES={
+  trivia:{label:"Quiz Connaissances",icon:"🐾",desc:"Questions sur les animaux, les œufs et les mécaniques du jeu.",
+    levels:{
+      facile:{label:"Facile",questions:[
+        {q:"Dans quel lycée joue Kuroko au début de la série ?",options:["Seirin","Touou","Rakuzan","Kaijo"],correct:0},
+        {q:"Quelle est la particularité principale de Kuroko sur le terrain ?",options:["Il saute très haut","Il est presque invisible","Il tire à 3 points","Il est très grand"],correct:1},
+        {q:"Comment s'appelle le capitaine de Seirin ?",options:["Kagami Taiga","Hyuga Junpei","Riko Aida","Izuki Shun"],correct:1},
+        {q:"Combien de membres comptait la Génération des Miracles (sans Kuroko) ?",options:["3","4","5","6"],correct:2},
+        {q:"Quel est le prénom du partenaire de Kuroko, sa lumière ?",options:["Aomine","Kagami","Kise","Midorima"],correct:1},
+        {q:"Quelle couleur de cheveux a Kise Ryōta ?",options:["Bleu","Violet","Blond","Rouge"],correct:2},
+        {q:"Quel sport est pratiqué dans Kuroko no Basket ?",options:["Football","Basket-ball","Volley-ball","Tennis"],correct:1},
+      ]},
+      moyen:{label:"Moyen",questions:[
+        {q:"Quel surnom porte Aomine Daiki lié à sa puissance ?",options:["Le Roi sans couronne","Le Tigre","La Lumière absolue","Le joueur le plus fort de Teiko"],correct:3},
+        {q:"Quel est l'objet fétiche que Midorima emporte toujours avec lui ?",options:["Un porte-bonheur du jour","Une montre","Un bandana","Des lunettes"],correct:0},
+        {q:"Quelle équipe Kise Ryōta représente-t-il ?",options:["Touou","Shutoku","Kaijo","Yosen"],correct:2},
+        {q:"Quel est le surnom de Murasakibara Atsushi ?",options:["Le Géant tendre","Le Mur","Le Roi sans couronne","Le Tigre de Seirin"],correct:1},
+        {q:"Qui entraîne l'équipe de Seirin ?",options:["Riko Aida","Junpei Hyuga","Kagetora Aida","Shinji Koganei"],correct:0},
+        {q:"Quel lycée Akashi Seijūrō dirige-t-il en tant que capitaine ?",options:["Touou","Rakuzan","Yosen","Shutoku"],correct:1},
+        {q:"Quelle est la couleur des cheveux d'Aomine Daiki ?",options:["Bleu marine","Violet","Rouge","Noir"],correct:0},
+      ]},
+      difficile:{label:"Difficile",questions:[
+        {q:"Quel est le nom de la technique de passe signature de Kuroko ?",options:["Ankle Break","Misdirection","Formless Shot","Zone"],correct:1},
+        {q:"Quel est le nom de l'état mental extrême atteint en fin de série ?",options:["La Zone","L'Œil Empereur","Le Mode Berserk","La Vision Parfaite"],correct:0},
+        {q:"Qui était capitaine de Teikō avant le changement de personnalité d'Akashi ?",options:["Akashi lui-même","Personne d'autre","Nijimura Shūzō","Haizaki Shōgo"],correct:2},
+        {q:"Quel joueur Kise remplace-t-il dans l'équipe titulaire de Teikō ?",options:["Haizaki Shōgo","Hanamiya Makoto","Kasamatsu Yukio","Imayoshi Shōichi"],correct:0},
+        {q:"Quel est le tir signature de Midorima, depuis n'importe quelle distance ?",options:["Formless Shot","Perfect Copy","High-arc 3-pointer","Phantom Shot"],correct:2},
+        {q:"Comment s'appelle la capacité de copie de Kise ?",options:["Zone","Perfect Copy","Misdirection","Emperor Eye"],correct:1},
+        {q:"Quel est le vrai pouvoir de l'Œil Empereur d'Akashi ?",options:["Voir l'avenir","Anticiper chaque mouvement adverse","Copier les techniques","Rendre invisible"],correct:1},
+      ]},
+    }
+  },
+  quote:{label:"Devine la réplique",icon:"💬",desc:"Une phrase culte — retrouve qui l'a prononcée.",
+    levels:{
+      facile:{label:"Facile",questions:[
+        {clue:"Je suis une ombre. Une ombre n'a pas besoin d'être vue.",options:["Kuroko","Kagami","Aomine","Riko"],correct:0},
+        {clue:"Le basket, c'est marrant quand on est fort.",options:["Kagami","Midorima","Kise","Aomine"],correct:3},
+        {clue:"Je deviendrai le joueur n°1 du Japon, et toi l'ombre n°1.",options:["Kise","Akashi","Kagami","Hyuga"],correct:2},
+        {clue:"Les bonnes choses arrivent à ceux qui s'entraînent dur.",options:["Midorima","Riko Aida","Momoi","Akashi"],correct:1},
+        {clue:"Le basket, ça se joue à cinq.",options:["Kagami","Hyuga","Kuroko","Riko"],correct:2},
+        {clue:"Sois mon ombre. Et moi, je serai ta lumière.",options:["Kuroko","Aomine","Kagami","Kise"],correct:2},
+      ]},
+      moyen:{label:"Moyen",questions:[
+        {clue:"Oha-Asa ne se trompe jamais.",options:["Takao","Akashi","Murasakibara","Midorima"],correct:3},
+        {clue:"Je copie tout ce que je vois... mais jamais le cœur.",options:["Aomine","Kuroko","Kise","Kagami"],correct:2},
+        {clue:"Perdre, ce n'est pas une option pour moi.",options:["Aomine","Akashi","Hyuga","Kasamatsu"],correct:1},
+        {clue:"Tant que je m'amuse, peu importe le résultat.",options:["Midorima","Kise","Imayoshi","Murasakibara"],correct:3},
+        {clue:"Je suis absolu.",options:["Aomine","Nijimura","Hanamiya","Akashi"],correct:3},
+        {clue:"Même si tu es un génie, le travail peut dépasser le talent.",options:["Kuroko","Kagami","Hyuga","Riko"],correct:1},
+      ]},
+      difficile:{label:"Difficile",questions:[
+        {clue:"Sans lumière, une ombre n'est rien. Mais sans ombre, la lumière n'est qu'éblouissante.",options:["Riko","Momoi","Hyuga","Kuroko"],correct:3},
+        {clue:"Je ne joue pas pour gagner. Je joue pour ne jamais perdre.",options:["Imayoshi","Haizaki","Hanamiya","Akashi"],correct:3},
+        {clue:"La victoire ou rien, il n'y a pas d'entre-deux.",options:["Aomine","Midorima","Nijimura","Akashi"],correct:3},
+        {clue:"Un génie n'a pas besoin de s'entraîner... mais je m'entraîne quand même plus que les autres.",options:["Kise","Murasakibara","Aomine","Midorima"],correct:3},
+        {clue:"Je veux juste jouer contre des adversaires forts, c'est tout.",options:["Kagami","Kuroko","Kise","Aomine"],correct:3},
+        {clue:"Si tu veux me battre, deviens assez fort pour que ta volonté seule renverse le destin.",options:["Aomine","Midorima","Nijimura","Akashi"],correct:3},
+      ]},
+    }
+  }
+};
+const GO=["trivia","quote"];
+const LO={trivia:["facile","moyen","difficile"],quote:["facile","moyen","difficile"]};
+
+const FQ=[
+  {q:"Quel est le score du match Teikō vs Meiko qui a marqué la rupture entre Aomine et Kuroko ?",options:["111-11","100-20","98-30","120-15"],correct:0},
+  {q:"Quel est le nom de la technique défensive de Kuroko pour contrer la Zone ?",options:["Vanishing Drive","Misdirection Overflow","Quasar Vanish","Ignite Pass Kai"],correct:1},
+  {q:"Quel joueur de Yōsen est surnommé le Sergent ?",options:["Himuro Tatsuya","Liu Wei","Fukui Kensuke","Okamura Kenichi"],correct:1},
+  {q:"Où Himuro Tatsuya a-t-il appris le basket avant le Japon ?",options:["En Chine","À Teikō","Aux États-Unis avec Kagami","À Yōsen directement"],correct:2},
+  {q:"Quel est le nom de la passe que Kuroko ne peut effectuer qu'en sacrifiant sa vision ?",options:["Vanishing Drive","Formless Shot","Phantom Shot","Ignite Pass Kai"],correct:3},
+  {q:"Qui est le coach de l'équipe nationale junior dans laquelle Kagami a évolué aux États-Unis ?",options:["Coach Sanada","Coach Riko","Aucun, fictif","Alex Garcia"],correct:3},
+  {q:"Quel surnom est donné à l'équipe de Rakuzan en raison de son invincibilité ?",options:["Les rois absolus","Le mur incassable","La forteresse","L'équipe parfaite"],correct:0},
+  {q:"Qui est le vice-capitaine et mentor direct de Kise à Kaijō ?",options:["Moriyama Yoshitaka","Hayakawa Mitsuhiro","Kobori Kotaro","Kasamatsu Yukio"],correct:3},
+  {q:"Quelle est la spécificité du jeu d'Akashi en tant que meneur ?",options:["Il ne fait que défendre","Il copie ses adversaires","Il joue en transition","Il anticipe et contrôle tout (Œil Empereur)"],correct:3},
+  {q:"Quel est le nom du tournoi inter-lycées que dispute Seirin tout au long de la série ?",options:["Summer League","National Championship","Tokyo Open","Winter Cup"],correct:3},
+];
+const FT=15;
+
+let player={nom:"",prenom:"",age:"",charId:""};
+let progress={};
+let cGame=null,cLevel=null,cQ=[],cIdx=0,cScore=0,aLocked=false,aLog=[];
+
+const SPL="knb-p",SPR="knb-r";
+function saveAll(){localStorage.setItem(SPL,JSON.stringify(player));localStorage.setItem(SPR,JSON.stringify(progress));}
+function loadAll(){
+  try{player=JSON.parse(localStorage.getItem(SPL))||{nom:"",prenom:"",age:"",charId:""};}catch(e){}
+  try{progress=JSON.parse(localStorage.getItem(SPR))||{};}catch(e){}
+}
+function clearAll(){localStorage.removeItem(SPL);localStorage.removeItem(SPR);player={nom:"",prenom:"",age:"",charId:""};progress={};}
+function pk(g,l){return g+"."+l;}
+function gc(id){return CHARS.find(c=>c.id===id)||CHARS[0];}
+function shuffle(a){const b=a.slice();for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function shuffleQ(list){
+  return shuffle(list).map(item=>{
+    const idx=shuffle(item.options.map((_,i)=>i));
+    return Object.assign({},item,{options:idx.map(i=>item.options[i]),correct:idx.indexOf(item.correct)});
+  });
+}
+
+async function sendDiscord(content){
+  if(!CONFIG.DISCORD_WEBHOOK_URL)return false;
+  try{await fetch(CONFIG.DISCORD_WEBHOOK_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({content})});return true;}catch(e){return false;}
+}
+async function notifyLong(lines){
+  let chunk="",chunks=[];
+  for(const l of lines){if((chunk+"\n"+l).length>1800){chunks.push(chunk);chunk="";}chunk+=(chunk?"\n":"")+l;}
+  if(chunk)chunks.push(chunk);
+  let ok=false;for(const c of chunks){const r=await sendDiscord(c);ok=ok||r;}return ok;
+}
+
+const SCREENS=["screen-wb","screen-char","screen-reg","screen-games","screen-zone","screen-wait","screen-fintro","screen-fquiz","screen-fres","screen-levels","screen-quiz","screen-result"];
+function hideAll(){SCREENS.forEach(id=>document.getElementById(id).classList.add("hidden"));}
+function show(id){hideAll();document.getElementById(id).classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"});}
+
+/* WELCOME BACK */
+function showWB(){
+  const ch=gc(player.charId);
+  document.getElementById("wb-av").textContent=ch.av;
+  document.getElementById("wb-char").textContent=ch.name+" · "+ch.role;
+  document.getElementById("wb-name").textContent=player.prenom+" "+player.nom;
+  document.getElementById("wb-info").textContent=player.age+" ans";
+  show("screen-wb");
+}
+document.getElementById("wb-continue").addEventListener("click",()=>goHub());
+document.getElementById("wb-new").addEventListener("click",()=>{clearAll();initCarousel();show("screen-char");});
+document.getElementById("wb-delete").addEventListener("click",()=>{
+  if(confirm("Supprimer le profil de "+player.prenom+" "+player.nom+" ?")){clearAll();initCarousel();show("screen-char");}
+});
+
+/* CAROUSEL */
+let ci=0,selId=null;
+function initCarousel(){
+  ci=0;selId=null;
+  document.getElementById("btn-char-next").disabled=true;
+  const sb=document.getElementById("char-sel-btn");sb.classList.remove("sel");sb.textContent="Choisir ce personnage";
+  const track=document.getElementById("char-track");track.innerHTML="";
+  CHARS.forEach(ch=>{
+    const s=document.createElement("div");s.className="char-slide";
+    s.innerHTML='<div class="ca">'+ch.av+'</div><div class="cn">'+ch.name+'</div><div class="cr">'+ch.role+'</div><div class="cage">'+ch.age+' ans</div><div class="cteam">'+ch.team+'</div>';
+    track.appendChild(s);
+  });
+  const dots=document.getElementById("char-dots");dots.innerHTML="";
+  CHARS.forEach((_,i)=>{
+    const d=document.createElement("span");d.className="char-dot"+(i===0?" active":"");
+    d.addEventListener("click",()=>goSlide(i));dots.appendChild(d);
+  });
+  updCarousel();
+}
+function updCarousel(){
+  document.getElementById("char-track").style.transform="translateX(-"+ci+"00%)";
+  document.querySelectorAll(".char-dot").forEach((d,i)=>d.classList.toggle("active",i===ci));
+}
+function goSlide(i){
+  ci=((i%CHARS.length)+CHARS.length)%CHARS.length;updCarousel();
+  const sb=document.getElementById("char-sel-btn");
+  if(selId&&CHARS[ci].id===selId){sb.classList.add("sel");sb.textContent="✔ Sélectionné";}
+  else{sb.classList.remove("sel");sb.textContent="Choisir ce personnage";}
+}
+document.getElementById("char-prev").addEventListener("click",()=>goSlide(ci-1));
+document.getElementById("char-next").addEventListener("click",()=>goSlide(ci+1));
+document.getElementById("char-sel-btn").addEventListener("click",()=>{
+  selId=CHARS[ci].id;
+  const sb=document.getElementById("char-sel-btn");sb.classList.add("sel");sb.textContent="✔ Sélectionné";
+  document.getElementById("btn-char-next").disabled=false;document.getElementById("char-err").textContent="";
+});
+document.getElementById("btn-char-next").addEventListener("click",()=>{
+  if(!selId){document.getElementById("char-err").textContent="Sélectionne un personnage d'abord.";return;}
+  const ch=gc(selId);
+  document.getElementById("reg-av").textContent=ch.av;
+  document.getElementById("reg-char").textContent=ch.name;
+  show("screen-reg");
+});
+document.getElementById("btn-reg-back").addEventListener("click",()=>show("screen-char"));
+
+/* REGISTER */
+document.getElementById("btn-register").addEventListener("click",async()=>{
+  const nom=document.getElementById("reg-nom").value.trim();
+  const prenom=document.getElementById("reg-prenom").value.trim();
+  const age=document.getElementById("reg-age").value.trim();
+  const err=document.getElementById("reg-err");
+  if(!nom||!prenom||!age){err.textContent="Merci de remplir nom, prénom et âge.";return;}
+  if(Number(age)<=0){err.textContent="Âge invalide.";return;}
+  err.textContent="";
+  const ch=gc(selId);
+  player={nom,prenom,age,charId:selId};progress={};saveAll();
+  notifyLong(["🏀 **Nouvelle inscription**","Nom : "+nom+" | Prénom : "+prenom+" | Âge : "+age,"Personnage : "+ch.av+" "+ch.name]);
+  goHub();
+});
+
+/* HUB */
+function goHub(){
+  const ch=gc(player.charId);
+  document.getElementById("hub-av").textContent=ch.av;
+  document.getElementById("hub-name").textContent=player.prenom+" "+player.nom;
+  show("screen-games");renderHub();
+}
+function allDone(gid){return LO[gid].every(l=>{const e=progress[pk(gid,l)];return e&&e.done;});}
+
+/* CORRECTIF : le jeu suivant ne s'ouvre que si le jeu précédent est validé à 100% (allDone),
+   et non plus simplement "tenté" (.some). */
+function gStatus(gid){
+  const idx=GO.indexOf(gid);if(idx===0)return allDone(gid)?"done":"open";
+  const prevDone=allDone(GO[idx-1]);
+  return prevDone?(allDone(gid)?"done":"open"):"locked";
+}
+/* Niveau suivant ouvert seulement si le précédent est 100% validé */
+function lStatus(gid,level){
+  const entry=progress[pk(gid,level)];if(entry&&entry.done)return"done";
+  const levels=LO[gid];const idx=levels.indexOf(level);
+  if(idx===0)return"open";
+  const prev=progress[pk(gid,levels[idx-1])];
+  return(prev&&prev.done)?"open":"locked";
+}
+/* CORRECTIF : la Zone d'Aomine ne s'affiche que si TOUS les jeux sont validés à 100%,
+   et non plus simplement "joués" (.some). */
+function anyPlayed(){return GO.every(gid=>allDone(gid));}
+
+function renderHub(){
+  const wrap=document.getElementById("games-wrap");wrap.innerHTML="";
+  GO.forEach(gid=>{
+    const g=GAMES[gid],st=gStatus(gid);
+    const card=document.createElement("div");card.className="game-card"+(st==="locked"?" locked":"");
+    card.innerHTML='<div class="gc-icon">'+g.icon+'</div><div class="gc-title">'+g.label+'</div><div class="gc-desc">'+g.desc+'</div><div class="gc-meta"><span class="pill '+(st==="done"?"done":(st==="open"?"open":""))+'">'+
+      (st==="locked"?"Verrouillé":st==="done"?"Terminé":"Ouvert")+'</span></div>';
+    card.addEventListener("click",()=>{if(st!=="locked")openLevels(gid);});
+    wrap.appendChild(card);
+  });
+  let zb=document.getElementById("zone-inline");
+  if(!zb){zb=document.createElement("div");zb.id="zone-inline";document.getElementById("games-wrap").parentElement.appendChild(zb);}
+  if(anyPlayed()){
+    zb.innerHTML='<div class="zone-card" style="cursor:pointer;" id="zone-inline-btn"><p class="zone-title">✨ Enclos VIP — Daiki Aomine</p><p class="zone-desc">🐣 Tu as fait éclore tous les œufs des deux jeux ! Envoie ton dossier d\'adoption à Aomine Daiki pour tenter le défi final.</p></div>';
+    document.getElementById("zone-inline-btn").addEventListener("click",()=>show("screen-zone"));
+  } else {
+    zb.innerHTML='<p style="color:var(--ink-soft);font-size:12px;margin-top:10px;font-weight:700;">🔒 Fais éclore tous les œufs des deux jeux (100%) pour débloquer l\'enclos VIP d\'Aomine Daiki.</p>';
+  }
+}
+document.getElementById("btn-zone-back").addEventListener("click",goHub);
+document.getElementById("crumb-back").addEventListener("click",goHub);
+
+/* LEVELS */
+function openLevels(gid){
+  cGame=gid;document.getElementById("crumb-game").textContent=GAMES[gid].label;
+  const wrap=document.getElementById("levels-wrap");wrap.innerHTML="";
+  LO[gid].forEach((lid,i)=>{
+    const lv=GAMES[gid].levels[lid],st=lStatus(gid,lid);
+    const card=document.createElement("div");card.className="level-card"+(st==="locked"?" locked":"");card.dataset.s=st;
+    const tc=st==="open"?"t-open":st==="done"?"t-done":"t-locked";
+    const tt=st==="open"?"Ouvert":st==="done"?"Terminé":"Verrouillé";
+    const entry=progress[pk(gid,lid)];
+    const meta=entry?"Dernier score : "+entry.score+"/"+entry.total:(st==="locked"?"Valide le niveau précédent (100%).":"Prêt à jouer.");
+    card.innerHTML='<div class="lnum">0'+(i+1)+'</div><div class="linfo"><div class="ltitle">'+lv.label+'</div><div class="lmeta">'+meta+'</div></div><div class="ltag '+tc+'">'+tt+'</div>';
+    card.addEventListener("click",()=>{if(st!=="locked")startQuiz(gid,lid);});
+    wrap.appendChild(card);
+  });
+  show("screen-levels");
+}
+document.getElementById("btn-back-games").addEventListener("click",goHub);
+
+/* QUIZ */
+function startQuiz(gid,lid){
+  cGame=gid;cLevel=lid;cQ=shuffleQ(GAMES[gid].levels[lid].questions);
+  cIdx=0;cScore=0;aLog=[];show("screen-quiz");renderQ();
+}
+function renderQ(){
+  aLocked=false;
+  const total=cQ.length,item=cQ[cIdx];
+  const ld=GAMES[cGame].levels[cLevel];
+  document.getElementById("q-prog").textContent=GAMES[cGame].label+" — "+ld.label+" — Q"+(cIdx+1)+" / "+total;
+  document.getElementById("q-fill").style.width=(cIdx/total)*100+"%";
+  const c=document.getElementById("q-content");
+  if(cGame==="trivia") c.innerHTML='<p class="qtext">'+item.q+'</p>';
+  else c.innerHTML='<p class="qquote">'+item.clue+'</p><p class="qwho">Qui a dit ça ?</p>';
+  const ow=document.getElementById("q-opts");ow.innerHTML="";
+  item.options.forEach((opt,i)=>{
+    const b=document.createElement("button");b.className="opt";b.textContent=opt;
+    b.addEventListener("click",()=>selectA(i,b));ow.appendChild(b);
+  });
+}
+function selectA(i,btn){
+  if(aLocked)return;aLocked=true;
+  const item=cQ[cIdx];
+  const btns=document.querySelectorAll("#q-opts .opt");btns.forEach(b=>b.disabled=true);
+  const ok=(i===item.correct);
+  if(ok){btn.classList.add("correct");cScore++;}
+  else{btn.classList.add("wrong");btns[item.correct].classList.add("correct");}
+  aLog.push({question:cGame==="trivia"?item.q:item.clue,chosen:item.options[i],correctAnswer:item.options[item.correct],isCorrect:ok});
+  setTimeout(()=>{cIdx++;if(cIdx<cQ.length)renderQ();else finishQ();},900);
+}
+async function finishQ(){
+  const total=cQ.length;
+  /* 100% requis pour valider et débloquer le niveau suivant */
+  const passed=(cScore===total);
+  const ld=GAMES[cGame].levels[cLevel];
+  const lastG=GO[GO.length-1];
+  const lastL=LO[lastG][LO[lastG].length-1];
+  const isFinal=(cGame===lastG&&cLevel===lastL);
+
+  progress[pk(cGame,cLevel)]={done:passed,score:cScore,total,log:aLog,gameLabel:GAMES[cGame].label,levelLabel:ld.label};
+  saveAll();show("screen-result");
+
+  document.getElementById("r-level").textContent=GAMES[cGame].label+" — "+ld.label;
+  document.getElementById("r-score").textContent=cScore+" / "+total;
+  document.getElementById("r-status").textContent=passed?"✅ Niveau validé — suite débloquée !":"❌ Il faut tout juste. Rejoue pour avancer.";
+  document.getElementById("r-status").style.color=passed?"var(--green)":"var(--red)";
+
+  const blb=document.getElementById("btn-back-levels");
+  if(isFinal){blb.textContent="← Retour à l'accueil";blb.onclick=()=>goHub();}
+  else{blb.textContent="Retour aux niveaux";blb.onclick=()=>openLevels(cGame);}
+
+  const recap=document.getElementById("recap");recap.innerHTML="";
+  aLog.forEach((r,idx)=>{
+    const row=document.createElement("div");row.className="recap-item";
+    row.innerHTML='<span class="ri-icon '+(r.isCorrect?"ok":"ko")+'">'+(r.isCorrect?"✔":"✘")+'</span><div><div class="ri-q">'+(idx+1)+'. '+r.question+'</div><div class="ri-a">Réponse : <strong>'+r.chosen+'</strong>'+(r.isCorrect?"":" — Bonne : <strong>"+r.correctAnswer+"</strong>")+'</div></div>';
+    recap.appendChild(row);
+  });
+
+  const st=document.getElementById("r-send");st.textContent="Envoi…";
+  const ch=gc(player.charId);
+  const lines=["🏀 **"+GAMES[cGame].label+" / "+ld.label+"**","Joueur : "+player.prenom+" "+player.nom+" ("+player.age+" ans) | "+ch.av+" "+ch.name,"Score : "+cScore+" / "+total+" — "+(passed?"✅":"❌"),""];
+  aLog.forEach((r,idx)=>{lines.push((r.isCorrect?"✅":"❌")+" Q"+(idx+1)+" : "+r.question+" → "+(r.isCorrect?r.chosen:"Donnée : "+r.chosen+" | Bonne : "+r.correctAnswer));});
+  const ok=await notifyLong(lines);
+  st.textContent=ok?"Résultat envoyé.":"Résultat non envoyé.";
+}
+
+/* ZONE */
+document.getElementById("btn-send-aomine").addEventListener("click",async()=>{
+  const btn=document.getElementById("btn-send-aomine");
+  btn.disabled=true;btn.textContent="Envoi en cours…";
+  const ch=gc(player.charId);
+  const lines=["🔥 **Rapport complet — "+player.prenom+" "+player.nom+" ("+player.age+" ans)**","Personnage : "+ch.av+" "+ch.name,""];
+  GO.forEach(gid=>{LO[gid].forEach(lid=>{
+    const e=progress[pk(gid,lid)];if(!e)return;
+    lines.push("__"+e.gameLabel+" — "+e.levelLabel+"__ — "+e.score+"/"+e.total+(e.done?" ✅":" ❌"));
+    (e.log||[]).forEach((r,idx)=>{lines.push((r.isCorrect?"✅":"❌")+" Q"+(idx+1)+" : "+r.question+" → "+(r.isCorrect?r.chosen:"Donnée : "+r.chosen+" | Bonne : "+r.correctAnswer));});
+    lines.push("");
+  });});
+  lines.push("🔑 **Code d'accès : `"+CONFIG.FINAL_CODE+"`**");
+  lines.push("_(Transmets ce code au joueur si tu l'acceptes)_");
+  const ok=await notifyLong(lines);
+  btn.disabled=false;btn.textContent="Envoyer mes réponses à Aomine";
+  const errEl=document.getElementById("zone-err");
+  if(!ok){errEl.textContent="L'envoi a échoué. Réessaie.";return;}
+  errEl.textContent="";show("screen-wait");
+});
+document.getElementById("btn-unlock").addEventListener("click",()=>{
+  const code=document.getElementById("access-code").value.trim();
+  const err=document.getElementById("wait-err");
+  if(!code){err.textContent="Entre le code transmis par Aomine Daiki.";return;}
+  if(code.toUpperCase()!==CONFIG.FINAL_CODE.toUpperCase()){err.textContent="Code incorrect.";return;}
+  err.textContent="";show("screen-fintro");
+});
+
+/* FINAL */
+let fi=0,fsc=0,flog=[],ftimer=null,ftime=0,flocked=false,fq=[];
+document.getElementById("btn-start-final").addEventListener("click",()=>{
+  fi=0;fsc=0;flog=[];fq=shuffleQ(FQ);show("screen-fquiz");renderFQ();
+});
+document.getElementById("btn-fr-home").addEventListener("click",goHub);
+function renderFQ(){
+  flocked=false;
+  const total=fq.length,item=fq[fi];
+  document.getElementById("fq-prog").textContent="Question "+(fi+1)+" / "+total;
+  document.getElementById("fq-fill").style.width=(fi/total)*100+"%";
+  document.getElementById("fq-text").textContent=item.q;
+  const w=document.getElementById("fq-opts");w.innerHTML="";
+  item.options.forEach((opt,i)=>{
+    const b=document.createElement("button");b.className="opt";b.textContent=opt;
+    b.addEventListener("click",()=>selectFQ(i,b));w.appendChild(b);
+  });
+  startFT();
+}
+function startFT(){
+  clearInterval(ftimer);ftime=FT;
+  const el=document.getElementById("fq-timer");el.textContent=ftime;el.classList.remove("urgent");
+  ftimer=setInterval(()=>{
+    ftime--;el.textContent=ftime;
+    if(ftime<=5)el.classList.add("urgent");
+    if(ftime<=0){clearInterval(ftimer);if(!flocked)timeoutFQ();}
+  },1000);
+}
+function timeoutFQ(){
+  flocked=true;const item=fq[fi];
+  const btns=document.querySelectorAll("#fq-opts .opt");btns.forEach(b=>b.disabled=true);
+  btns[item.correct].classList.add("correct");
+  flog.push({question:item.q,chosen:"(temps écoulé)",correctAnswer:item.options[item.correct],isCorrect:false});
+  setTimeout(advFQ,1100);
+}
+function selectFQ(i,btn){
+  if(flocked)return;flocked=true;clearInterval(ftimer);
+  const item=fq[fi];
+  const btns=document.querySelectorAll("#fq-opts .opt");btns.forEach(b=>b.disabled=true);
+  const ok=(i===item.correct);
+  if(ok){btn.classList.add("correct");fsc++;}
+  else{btn.classList.add("wrong");btns[item.correct].classList.add("correct");}
+  flog.push({question:item.q,chosen:item.options[i],correctAnswer:item.options[item.correct],isCorrect:ok});
+  setTimeout(advFQ,900);
+}
+function advFQ(){fi++;if(fi<fq.length)renderFQ();else finishF();}
+async function finishF(){
+  clearInterval(ftimer);const total=fq.length,passed=(fsc===total);
+  show("screen-fres");
+  const t=document.getElementById("fr-title"),tx=document.getElementById("fr-text");
+  if(passed){t.textContent="Félicitations. Tu as ta place parmi nous.";t.className="fr-title pass";tx.textContent="10 / 10. Aomine Daiki n'a rien à redire.";}
+  else{t.textContent="Seuls les génies peuvent avoir leur place.";t.className="fr-title fail";tx.textContent="Score final : "+fsc+" / "+total+".";}
+  const st=document.getElementById("fr-send");st.textContent="Envoi…";
+  const ch=gc(player.charId);
+  const lines=["⚡ **Défi final — "+player.prenom+" "+player.nom+"**","Personnage : "+ch.av+" "+ch.name,"Score : "+fsc+" / "+total+" — "+(passed?"✅ ACCEPTÉ":"❌ REFUSÉ"),""];
+  flog.forEach((r,idx)=>{lines.push((r.isCorrect?"✅":"❌")+" Q"+(idx+1)+" : "+r.question+" → "+(r.isCorrect?r.chosen:"Donnée : "+r.chosen+" | Bonne : "+r.correctAnswer));});
+  const ok=await notifyLong(lines);
+  st.textContent=ok?"Résultat final envoyé.":"Résultat non envoyé.";
+}
+
+/* START */
+loadAll();
+if(player.nom&&player.prenom&&player.charId)showWB();
+else{initCarousel();show("screen-char");}
+</script>
+</body>
+</html>
