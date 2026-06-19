@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quiz Génération des Miracles — Style Adopt Me</title>
+<title>Quiz Adopt Me — Élève ton savoir !</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -280,8 +280,8 @@ footer{text-align:center;color:var(--ink-soft);font-size:11px;margin-top:36px;fo
 <body>
 <div class="wrap">
   <p class="eyebrow">🐾 Quiz Adoption · Édition spéciale</p>
-  <h1 class="brand">Generation<br>of <em>Miracles</em></h1>
-  <p class="sub">🥚 2 jeux, 3 œufs à faire éclore dans chacun. Et si tu vas jusqu'au bout — quelqu'un d'autre t'attend dans l'enclos VIP.</p>
+  <h1 class="brand">Adopt Me<br><em>Quiz Master</em></h1>
+  <p class="sub">🥚 2 jeux, 3 œufs à faire éclore dans chacun. Et si tu vas jusqu'au bout — l'Œuf Légendaire t'attend dans l'enclos VIP.</p>
 
   <!-- WELCOME BACK -->
   <section id="screen-wb" class="panel hidden">
@@ -307,15 +307,15 @@ footer{text-align:center;color:var(--ink-soft);font-size:11px;margin-top:36px;fo
 
   <!-- CHAR SELECTION -->
   <section id="screen-char" class="panel hidden">
-    <p class="ptitle">Étape 1 — Choisis ton personnage</p>
-    <p style="font-size:13px;color:var(--t2);margin-bottom:22px;">Fais défiler les joueurs et sélectionne celui qui te représente.</p>
+    <p class="ptitle">Étape 1 — Choisis ton animal</p>
+    <p style="font-size:13px;color:var(--t2);margin-bottom:22px;">Fais défiler les animaux et sélectionne celui qui te représente.</p>
     <div class="char-carousel"><div class="char-track" id="char-track"></div></div>
     <div class="char-nav">
       <button class="char-arrow" id="char-prev">‹</button>
       <div class="char-dots" id="char-dots"></div>
       <button class="char-arrow" id="char-next">›</button>
     </div>
-    <button class="char-select-btn" id="char-sel-btn">Choisir ce personnage</button>
+    <button class="char-select-btn" id="char-sel-btn">Choisir cet animal</button>
     <p class="error" id="char-err"></p>
     <div class="btn-row">
       <button class="btn btn-p" id="btn-char-next" disabled>Continuer →</button>
@@ -328,18 +328,18 @@ footer{text-align:center;color:var(--ink-soft);font-size:11px;margin-top:36px;fo
     <div id="reg-recap" style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--s2);border:1px solid rgba(200,164,74,.18);border-radius:1px;margin-bottom:24px;">
       <span id="reg-av" style="font-size:28px;"></span>
       <div>
-        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:var(--t2);">Personnage choisi</div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:var(--t2);">Animal choisi</div>
         <div id="reg-char" style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:17px;text-transform:uppercase;color:var(--gold);"></div>
       </div>
     </div>
     <label for="reg-nom">Nom</label>
-    <input id="reg-nom" type="text" placeholder="ex : Tetsuya" autocomplete="off">
-    <label for="reg-prenom">Prénom</label>
-    <input id="reg-prenom" type="text" placeholder="ex : Kuroko" autocomplete="off">
+    <input id="reg-nom" type="text" placeholder="ex : Dupont" autocomplete="off">
+    <label for="reg-prenom">Prénom (pseudo Roblox)</label>
+    <input id="reg-prenom" type="text" placeholder="ex : xXAdoptFanXx" autocomplete="off">
     <label for="reg-age">Âge</label>
-    <input id="reg-age" type="number" min="1" max="120" placeholder="16">
+    <input id="reg-age" type="number" min="1" max="120" placeholder="12">
     <div class="btn-row">
-      <button class="btn btn-p" id="btn-register">Entrer sur le terrain</button>
+      <button class="btn btn-p" id="btn-register">Entrer dans Adoption Island</button>
       <button class="btn btn-g" id="btn-reg-back">← Retour</button>
     </div>
     <p class="error" id="reg-err"></p>
@@ -357,13 +357,13 @@ footer{text-align:center;color:var(--ink-soft);font-size:11px;margin-top:36px;fo
     <div class="games" id="games-wrap"></div>
   </section>
 
-  <!-- ZONE AOMINE -->
+  <!-- ZONE OEUF LEGENDAIRE -->
   <section id="screen-zone" class="panel red hidden">
-    <p class="ptitle">✨ Enclos VIP — Daiki Aomine</p>
+    <p class="ptitle">✨ Enclos VIP — Œuf Légendaire</p>
     <div class="zone-card">
-      <p class="zone-desc">🐾 Envoie ton dossier d'adoption à Aomine Daiki. S'il estime que tu en vaux la peine, il te laissera tenter sa dernière épreuve — 10 questions, zéro droit à l'erreur, pour adopter l'œuf légendaire.</p>
+      <p class="zone-desc">🐾 Envoie ton dossier d'adoption au gardien de l'enclos VIP. Si ta progression est validée, tu pourras tenter l'épreuve finale — 10 questions, zéro droit à l'erreur, pour faire éclore l'Œuf Légendaire.</p>
       <div class="btn-row">
-        <button class="btn btn-d" id="btn-send-aomine">📨 Envoyer mon dossier à Aomine</button>
+        <button class="btn btn-d" id="btn-send-aomine">📨 Envoyer mon dossier d'adoption</button>
         <button class="btn btn-g" id="btn-zone-back">← Retour</button>
       </div>
       <p class="error" id="zone-err"></p>
@@ -373,8 +373,8 @@ footer{text-align:center;color:var(--ink-soft);font-size:11px;margin-top:36px;fo
   <!-- WAITING -->
   <section id="screen-wait" class="panel red hidden">
     <div class="wi-icon">🥚</div>
-    <p class="wi-title"><span class="pulse"></span>En attente d'Aomine Daiki</p>
-    <p class="wi-text">Ton dossier vient d'être envoyé. Si Aomine Daiki t'accepte dans l'enclos VIP, il t'enverra un code sur Discord. Entre-le ici dès que tu l'as.</p>
+    <p class="wi-title"><span class="pulse"></span>En attente de validation</p>
+    <p class="wi-text">Ton dossier vient d'être envoyé. Si ta progression est validée pour l'enclos VIP, tu recevras un code sur Discord. Entre-le ici dès que tu l'as.</p>
     <label for="access-code" style="margin-top:24px;">Code d'accès</label>
     <input id="access-code" type="text" placeholder="••••••••">
     <div class="btn-row">
@@ -387,7 +387,7 @@ footer{text-align:center;color:var(--ink-soft);font-size:11px;margin-top:36px;fo
   <section id="screen-fintro" class="panel red hidden">
     <p class="ptitle">🌟 Tu es élu.</p>
     <p style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(26px,5.5vw,36px);color:var(--purple-d);line-height:1.2;margin-bottom:14px;">10 questions.<br><em style="color:var(--pink);font-style:normal;">Zéro droit<br>à l'erreur.</em></p>
-    <p style="font-size:13.5px;color:var(--ink-soft);line-height:1.65;font-weight:700;">🥚 Extrêmement difficiles. Un temps limité par question pour adopter l'œuf légendaire.</p>
+    <p style="font-size:13.5px;color:var(--ink-soft);line-height:1.65;font-weight:700;">🥚 Extrêmement difficiles. Un temps limité par question pour faire éclore l'Œuf Légendaire.</p>
     <div class="btn-row">
       <button class="btn btn-d" id="btn-start-final">Relever le défi</button>
     </div>
@@ -442,13 +442,13 @@ footer{text-align:center;color:var(--ink-soft);font-size:11px;margin-top:36px;fo
     </div>
   </section>
 
-  <footer>🐾 Fan quiz non officiel — Kuroko no Basket © Tadatoshi Fujimaki / Shueisha</footer>
+  <footer>🐾 Fan quiz non officiel — Adopt Me! © Uplift Games / Roblox Corporation</footer>
 </div>
 
 <script>
 const CONFIG={
   DISCORD_WEBHOOK_URL:"https://discord.com/api/webhooks/1517605118051356744/AEtfwWoh1Bq6czzwOU6gIPl4X-Ui5l2bz3buRmhRhcllLEtwTe5jrQIy47ztz7Z7s63N",
-  FINAL_CODE:"AOMINE05"
+  FINAL_CODE:"LEGENDAIRE05"
 };
 
 const CHARS=[
@@ -473,59 +473,59 @@ const GAMES={
   trivia:{label:"Quiz Connaissances",icon:"🐾",desc:"Questions sur les animaux, les œufs et les mécaniques du jeu.",
     levels:{
       facile:{label:"Facile",questions:[
-        {q:"Dans quel lycée joue Kuroko au début de la série ?",options:["Seirin","Touou","Rakuzan","Kaijo"],correct:0},
-        {q:"Quelle est la particularité principale de Kuroko sur le terrain ?",options:["Il saute très haut","Il est presque invisible","Il tire à 3 points","Il est très grand"],correct:1},
-        {q:"Comment s'appelle le capitaine de Seirin ?",options:["Kagami Taiga","Hyuga Junpei","Riko Aida","Izuki Shun"],correct:1},
-        {q:"Combien de membres comptait la Génération des Miracles (sans Kuroko) ?",options:["3","4","5","6"],correct:2},
-        {q:"Quel est le prénom du partenaire de Kuroko, sa lumière ?",options:["Aomine","Kagami","Kise","Midorima"],correct:1},
-        {q:"Quelle couleur de cheveux a Kise Ryōta ?",options:["Bleu","Violet","Blond","Rouge"],correct:2},
-        {q:"Quel sport est pratiqué dans Kuroko no Basket ?",options:["Football","Basket-ball","Volley-ball","Tennis"],correct:1},
+        {q:"Quelle monnaie utilise-t-on dans Adopt Me pour acheter la plupart des objets ?",options:["Robux","Bucks","Gems","Coins"],correct:1},
+        {q:"Quel est le nom du bâtiment où l'on adopte des bébés ou des animaux ?",options:["La Nursery","Le Shop","La Mairie","Le Café"],correct:0},
+        {q:"Quel œuf de base permet d'obtenir les tout premiers animaux du jeu ?",options:["Œuf Royal","Œuf Cargo","Œuf Fermier","Œuf de départ (Cracked Egg)"],correct:3},
+        {q:"Quelle rareté est la plus haute pour un animal dans Adopt Me ?",options:["Rare","Ultra-Rare","Légendaire","Commune"],correct:2},
+        {q:"Comment s'appelle l'action de transformer un animal bébé en animal adulte ?",options:["Évoluer","Vieillir","Grandir (Age up)","Muter"],correct:2},
+        {q:"Quel type d'animal NE peut PAS être obtenu via un œuf classique ?",options:["Animal de potion (Mythical Potion)","Chien", "Chat","Dragon"],correct:0},
+        {q:"Dans quel mode peut-on échanger des animaux avec d'autres joueurs ?",options:["Le mode Trade","Le mode Battle","Le mode Build","Le mode Race"],correct:0},
       ]},
       moyen:{label:"Moyen",questions:[
-        {q:"Quel surnom porte Aomine Daiki lié à sa puissance ?",options:["Le Roi sans couronne","Le Tigre","La Lumière absolue","Le joueur le plus fort de Teiko"],correct:3},
-        {q:"Quel est l'objet fétiche que Midorima emporte toujours avec lui ?",options:["Un porte-bonheur du jour","Une montre","Un bandana","Des lunettes"],correct:0},
-        {q:"Quelle équipe Kise Ryōta représente-t-il ?",options:["Touou","Shutoku","Kaijo","Yosen"],correct:2},
-        {q:"Quel est le surnom de Murasakibara Atsushi ?",options:["Le Géant tendre","Le Mur","Le Roi sans couronne","Le Tigre de Seirin"],correct:1},
-        {q:"Qui entraîne l'équipe de Seirin ?",options:["Riko Aida","Junpei Hyuga","Kagetora Aida","Shinji Koganei"],correct:0},
-        {q:"Quel lycée Akashi Seijūrō dirige-t-il en tant que capitaine ?",options:["Touou","Rakuzan","Yosen","Shutoku"],correct:1},
-        {q:"Quelle est la couleur des cheveux d'Aomine Daiki ?",options:["Bleu marine","Violet","Rouge","Noir"],correct:0},
+        {q:"Quel est le nom du studio qui développe Adopt Me ?",options:["Uplift Games","DreamCraft","Builderman Studio","Roblox Corporation"],correct:0},
+        {q:"Quel animal légendaire a été ajouté lors de l'événement Halloween 2019 ?",options:["Bat Dragon","Frost Dragon","Owl","Griffin"],correct:0},
+        {q:"Comment appelle-t-on un animal qui change d'apparence avec un effet spécial (paillettes, néon...) ?",options:["Animal Mega Neon","Animal Premium","Animal Brillant (Shiny)","Animal VIP"],correct:0},
+        {q:"Combien de niveaux d'évolution un animal Neon doit-il franchir pour devenir Mega Neon ?",options:["1 fois Neon","2 fois Neon (4 animaux Neon)","3 fois Neon","Il n'y a pas de Mega Neon"],correct:1},
+        {q:"Quel objet permet d'adopter un animal directement sans passer par un œuf ?",options:["La Potion Mythique","Le Ticket Adoption","Le Coffre VIP","La Carte Cadeau"],correct:0},
+        {q:"Quelle zone du jeu permet de personnaliser sa maison ?",options:["Adoption Island","Le quartier résidentiel (Neighborhood)","La Ferme","Le Café"],correct:1},
+        {q:"Quel événement saisonnier ajoute traditionnellement des animaux sur le thème de la neige ?",options:["L'événement d'été","L'événement d'Halloween","L'événement de Noël","L'événement de Pâques"],correct:2},
       ]},
       difficile:{label:"Difficile",questions:[
-        {q:"Quel est le nom de la technique de passe signature de Kuroko ?",options:["Ankle Break","Misdirection","Formless Shot","Zone"],correct:1},
-        {q:"Quel est le nom de l'état mental extrême atteint en fin de série ?",options:["La Zone","L'Œil Empereur","Le Mode Berserk","La Vision Parfaite"],correct:0},
-        {q:"Qui était capitaine de Teikō avant le changement de personnalité d'Akashi ?",options:["Akashi lui-même","Personne d'autre","Nijimura Shūzō","Haizaki Shōgo"],correct:2},
-        {q:"Quel joueur Kise remplace-t-il dans l'équipe titulaire de Teikō ?",options:["Haizaki Shōgo","Hanamiya Makoto","Kasamatsu Yukio","Imayoshi Shōichi"],correct:0},
-        {q:"Quel est le tir signature de Midorima, depuis n'importe quelle distance ?",options:["Formless Shot","Perfect Copy","High-arc 3-pointer","Phantom Shot"],correct:2},
-        {q:"Comment s'appelle la capacité de copie de Kise ?",options:["Zone","Perfect Copy","Misdirection","Emperor Eye"],correct:1},
-        {q:"Quel est le vrai pouvoir de l'Œil Empereur d'Akashi ?",options:["Voir l'avenir","Anticiper chaque mouvement adverse","Copier les techniques","Rendre invisible"],correct:1},
+        {q:"Quel est le nom de l'œuf qui a introduit le Shadow Dragon ?",options:["Œuf de Halloween 2019","Œuf Royal","Œuf Cargo","Œuf Fermier"],correct:0},
+        {q:"Quelle était la toute première monnaie premium du jeu avant le système actuel ?",options:["Il n'y en a jamais eu d'autre","Les Gems","Les Tickets d'or","Les Diamants"],correct:1},
+        {q:"Quel est le nombre approximatif d'évolutions d'un animal Mega Neon par rapport à sa version de base ?",options:["2 animaux de base","4 animaux de base","8 animaux de base (via 2 Neon)","16 animaux de base"],correct:2},
+        {q:"Quel animal est considéré comme l'un des plus rares à avoir existé via un événement limité dans le temps ?",options:["Evil Unicorn","Chien classique","Chat classique","Lapin de Pâques basique"],correct:0},
+        {q:"Comment appelle-t-on les vêtements et accessoires que l'on peut équiper sur son personnage ?",options:["Skins","Costumes / Tenues","Avatars","Mods"],correct:1},
+        {q:"Quel système permet de gagner des bucks en s'occupant d'un bébé (le nourrir, jouer, le baigner) ?",options:["Le système de tâches parentales (Baby Care)","Le système de quêtes","Le système de combat","Le système de minage"],correct:0},
+        {q:"Quelle zone est dédiée aux courses et compétitions entre joueurs ?",options:["La piste de course (Race Track)","La Ferme","Adoption Island","Le quartier résidentiel"],correct:0},
       ]},
     }
   },
-  quote:{label:"Devine la réplique",icon:"💬",desc:"Une phrase culte — retrouve qui l'a prononcée.",
+  quote:{label:"Devine l'animal",icon:"🔍",desc:"Une description ou un indice — retrouve de quel animal Adopt Me il s'agit.",
     levels:{
       facile:{label:"Facile",questions:[
-        {clue:"Je suis une ombre. Une ombre n'a pas besoin d'être vue.",options:["Kuroko","Kagami","Aomine","Riko"],correct:0},
-        {clue:"Le basket, c'est marrant quand on est fort.",options:["Kagami","Midorima","Kise","Aomine"],correct:3},
-        {clue:"Je deviendrai le joueur n°1 du Japon, et toi l'ombre n°1.",options:["Kise","Akashi","Kagami","Hyuga"],correct:2},
-        {clue:"Les bonnes choses arrivent à ceux qui s'entraînent dur.",options:["Midorima","Riko Aida","Momoi","Akashi"],correct:1},
-        {clue:"Le basket, ça se joue à cinq.",options:["Kagami","Hyuga","Kuroko","Riko"],correct:2},
-        {clue:"Sois mon ombre. Et moi, je serai ta lumière.",options:["Kuroko","Aomine","Kagami","Kise"],correct:2},
+        {clue:"Animal légendaire emblématique, en forme de cheval avec une corne sur le front, présent depuis les débuts du jeu.",options:["Dragon","Unicorn","Griffin","Phoenix"],correct:1},
+        {clue:"Animal au long cou, originaire de l'Œuf Safari, parfait pour atteindre les hauteurs.",options:["Giraffe","Kangaroo","Owl","Parrot"],correct:0},
+        {clue:"Animal nocturne aux grands yeux, issu de l'Œuf Fermier, symbole de sagesse.",options:["Crow","Owl","Bat Dragon","Phoenix"],correct:1},
+        {clue:"Petit marsupial bondissant, originaire d'Australie, disponible via l'Œuf Safari.",options:["Kangaroo","Griffin","Reindeer","Queen Bee"],correct:0},
+        {clue:"Oiseau très coloré aux plumes vives, parfait pour les amateurs de jungle.",options:["Parrot","Crow","Owl","Phoenix"],correct:0},
+        {clue:"Mi-lion, mi-aigle, cette créature mythologique fait partie de l'Œuf Royal.",options:["Dragon","Griffin","Unicorn","Shadow Dragon"],correct:1},
       ]},
       moyen:{label:"Moyen",questions:[
-        {clue:"Oha-Asa ne se trompe jamais.",options:["Takao","Akashi","Murasakibara","Midorima"],correct:3},
-        {clue:"Je copie tout ce que je vois... mais jamais le cœur.",options:["Aomine","Kuroko","Kise","Kagami"],correct:2},
-        {clue:"Perdre, ce n'est pas une option pour moi.",options:["Aomine","Akashi","Hyuga","Kasamatsu"],correct:1},
-        {clue:"Tant que je m'amuse, peu importe le résultat.",options:["Midorima","Kise","Imayoshi","Murasakibara"],correct:3},
-        {clue:"Je suis absolu.",options:["Aomine","Nijimura","Hanamiya","Akashi"],correct:3},
-        {clue:"Même si tu es un génie, le travail peut dépasser le talent.",options:["Kuroko","Kagami","Hyuga","Riko"],correct:1},
+        {clue:"Cette créature reptilienne classique respire (presque) le feu et fait partie de l'Œuf Royal depuis longtemps.",options:["Dragon","Phoenix","Griffin","Shadow Dragon"],correct:0},
+        {clue:"Version sombre et opposée de l'animal le plus emblématique du jeu, sortie pour Halloween 2019.",options:["Bat Dragon","Evil Unicorn","Shadow Dragon","Crow"],correct:1},
+        {clue:"Cet animal renaît symboliquement de ses cendres et fait partie des créatures les plus prisées de l'Œuf Royal.",options:["Phoenix","Dragon","Griffin","Frost Dragon"],correct:0},
+        {clue:"Petit oiseau noir discret, mais très recherché par les collectionneurs, originaire de l'Œuf Fermier.",options:["Crow","Owl","Parrot","Queen Bee"],correct:0},
+        {clue:"Cette créature règne sur sa ruche et fait partie de l'Œuf Insecte.",options:["Queen Bee","Parrot","Phoenix","Griffin"],correct:0},
+        {clue:"Cet animal élégant aux bois imposants est associé aux fêtes de fin d'année.",options:["Arctic Reindeer","Giraffe","Kangaroo","Owl"],correct:0},
       ]},
       difficile:{label:"Difficile",questions:[
-        {clue:"Sans lumière, une ombre n'est rien. Mais sans ombre, la lumière n'est qu'éblouissante.",options:["Riko","Momoi","Hyuga","Kuroko"],correct:3},
-        {clue:"Je ne joue pas pour gagner. Je joue pour ne jamais perdre.",options:["Imayoshi","Haizaki","Hanamiya","Akashi"],correct:3},
-        {clue:"La victoire ou rien, il n'y a pas d'entre-deux.",options:["Aomine","Midorima","Nijimura","Akashi"],correct:3},
-        {clue:"Un génie n'a pas besoin de s'entraîner... mais je m'entraîne quand même plus que les autres.",options:["Kise","Murasakibara","Aomine","Midorima"],correct:3},
-        {clue:"Je veux juste jouer contre des adversaires forts, c'est tout.",options:["Kagami","Kuroko","Kise","Aomine"],correct:3},
-        {clue:"Si tu veux me battre, deviens assez fort pour que ta volonté seule renverse le destin.",options:["Aomine","Midorima","Nijimura","Akashi"],correct:3},
+        {clue:"Ce dragon glacé est sorti lors de l'événement de Noël 2019 et reste l'un des plus demandés en échange.",options:["Frost Dragon","Shadow Dragon","Bat Dragon","Phoenix"],correct:0},
+        {clue:"Ce dragon ailé sombre, sorti pour Halloween 2019, est considéré comme l'un des animaux les plus précieux à échanger de toute l'histoire du jeu.",options:["Bat Dragon","Shadow Dragon","Evil Unicorn","Griffin"],correct:0},
+        {clue:"Cette créature combine les couleurs sombres et un design opposé à la mascotte historique du jeu, sortie pendant un événement d'Halloween.",options:["Evil Unicorn","Shadow Dragon","Crow","Bat Dragon"],correct:0},
+        {clue:"Star retirée (legacy) de l'Œuf Safari, reconnaissable à son long cou, qu'on ne peut plus obtenir via cet œuf aujourd'hui.",options:["Giraffe","Kangaroo","Parrot","Reindeer"],correct:0},
+        {clue:"Ce dragon sombre, sorti pour Halloween 2019, est souvent cité comme le dragon le plus convoité de tout le jeu.",options:["Shadow Dragon","Frost Dragon","Bat Dragon","Phoenix"],correct:0},
+        {clue:"Cette créature mythique fait à la fois partie de l'Œuf Royal et symbolise le renouveau après les flammes.",options:["Phoenix","Griffin","Dragon","Unicorn"],correct:0},
       ]},
     }
   }
@@ -534,16 +534,16 @@ const GO=["trivia","quote"];
 const LO={trivia:["facile","moyen","difficile"],quote:["facile","moyen","difficile"]};
 
 const FQ=[
-  {q:"Quel est le score du match Teikō vs Meiko qui a marqué la rupture entre Aomine et Kuroko ?",options:["111-11","100-20","98-30","120-15"],correct:0},
-  {q:"Quel est le nom de la technique défensive de Kuroko pour contrer la Zone ?",options:["Vanishing Drive","Misdirection Overflow","Quasar Vanish","Ignite Pass Kai"],correct:1},
-  {q:"Quel joueur de Yōsen est surnommé le Sergent ?",options:["Himuro Tatsuya","Liu Wei","Fukui Kensuke","Okamura Kenichi"],correct:1},
-  {q:"Où Himuro Tatsuya a-t-il appris le basket avant le Japon ?",options:["En Chine","À Teikō","Aux États-Unis avec Kagami","À Yōsen directement"],correct:2},
-  {q:"Quel est le nom de la passe que Kuroko ne peut effectuer qu'en sacrifiant sa vision ?",options:["Vanishing Drive","Formless Shot","Phantom Shot","Ignite Pass Kai"],correct:3},
-  {q:"Qui est le coach de l'équipe nationale junior dans laquelle Kagami a évolué aux États-Unis ?",options:["Coach Sanada","Coach Riko","Aucun, fictif","Alex Garcia"],correct:3},
-  {q:"Quel surnom est donné à l'équipe de Rakuzan en raison de son invincibilité ?",options:["Les rois absolus","Le mur incassable","La forteresse","L'équipe parfaite"],correct:0},
-  {q:"Qui est le vice-capitaine et mentor direct de Kise à Kaijō ?",options:["Moriyama Yoshitaka","Hayakawa Mitsuhiro","Kobori Kotaro","Kasamatsu Yukio"],correct:3},
-  {q:"Quelle est la spécificité du jeu d'Akashi en tant que meneur ?",options:["Il ne fait que défendre","Il copie ses adversaires","Il joue en transition","Il anticipe et contrôle tout (Œil Empereur)"],correct:3},
-  {q:"Quel est le nom du tournoi inter-lycées que dispute Seirin tout au long de la série ?",options:["Summer League","National Championship","Tokyo Open","Winter Cup"],correct:3},
+  {q:"Quel est le nom complet du studio derrière Adopt Me, fondé par Tony Cocking et Mark Frisco ?",options:["Uplift Games","DreamCraft","Roblox Studios","Frisco Interactive"],correct:0},
+  {q:"En quelle année le jeu Adopt Me a-t-il été lancé sur Roblox ?",options:["2014","2017","2019","2021"],correct:1},
+  {q:"Quel était le nom original du jeu avant qu'il ne devienne Adopt Me tel qu'on le connaît ?",options:["Welcome to Bloxburg","Pet World","Adopt and Raise a Baby (Adopt Me!)","Roblox Pets"],correct:2},
+  {q:"Quel système permet d'obtenir des animaux Mega Neon en combinant plusieurs animaux Neon ?",options:["Fusion classique","Combinaison de 4 animaux Neon","Combinaison de 8 animaux Neon","Achat direct en boutique"],correct:1},
+  {q:"Quel type d'objet rare permettait historiquement d'adopter directement un animal légendaire sans passer par un œuf, lors de certains événements ?",options:["La Potion Mythique","Le Ticket VIP","La Carte Premium","Le Coffre Royal"],correct:0},
+  {q:"Quelle zone emblématique du jeu a été ajoutée pour permettre l'exploration sous-marine ?",options:["Ocean Egg / zone océanique","Adoption Island","La Ferme","Le quartier résidentiel"],correct:0},
+  {q:"Quel est le nom de la zone où les joueurs peuvent gérer un café et servir des clients ?",options:["Le Café (Café feature)","La Ferme","Le Spa","L'Hôpital"],correct:0},
+  {q:"Quel événement annuel introduit traditionnellement des animaux sur le thème des œufs et du printemps ?",options:["L'événement de Pâques","L'événement d'Halloween","L'événement de Noël","L'événement d'été"],correct:0},
+  {q:"Quelle fonctionnalité permet aux joueurs de simuler la vie de famille avec des rôles (parent/bébé) ?",options:["Le système de familles (Family roleplay)","Le mode combat","Le mode course","Le mode construction"],correct:0},
+  {q:"Quel est le principe du système de trading qui empêche les arnaques évidentes en affichant la valeur estimée des objets échangés ?",options:["Aucun système de valeur officiel n'existe en jeu","Un système de valeur intégré au jeu","Des sites tiers non officiels uniquement","Un système de notation des joueurs"],correct:2},
 ];
 const FT=15;
 
@@ -551,7 +551,7 @@ let player={nom:"",prenom:"",age:"",charId:""};
 let progress={};
 let cGame=null,cLevel=null,cQ=[],cIdx=0,cScore=0,aLocked=false,aLog=[];
 
-const SPL="knb-p",SPR="knb-r";
+const SPL="adm-p",SPR="adm-r";
 function saveAll(){localStorage.setItem(SPL,JSON.stringify(player));localStorage.setItem(SPR,JSON.stringify(progress));}
 function loadAll(){
   try{player=JSON.parse(localStorage.getItem(SPL))||{nom:"",prenom:"",age:"",charId:""};}catch(e){}
@@ -603,7 +603,7 @@ let ci=0,selId=null;
 function initCarousel(){
   ci=0;selId=null;
   document.getElementById("btn-char-next").disabled=true;
-  const sb=document.getElementById("char-sel-btn");sb.classList.remove("sel");sb.textContent="Choisir ce personnage";
+  const sb=document.getElementById("char-sel-btn");sb.classList.remove("sel");sb.textContent="Choisir cet animal";
   const track=document.getElementById("char-track");track.innerHTML="";
   CHARS.forEach(ch=>{
     const s=document.createElement("div");s.className="char-slide";
@@ -625,7 +625,7 @@ function goSlide(i){
   ci=((i%CHARS.length)+CHARS.length)%CHARS.length;updCarousel();
   const sb=document.getElementById("char-sel-btn");
   if(selId&&CHARS[ci].id===selId){sb.classList.add("sel");sb.textContent="✔ Sélectionné";}
-  else{sb.classList.remove("sel");sb.textContent="Choisir ce personnage";}
+  else{sb.classList.remove("sel");sb.textContent="Choisir cet animal";}
 }
 document.getElementById("char-prev").addEventListener("click",()=>goSlide(ci-1));
 document.getElementById("char-next").addEventListener("click",()=>goSlide(ci+1));
@@ -635,7 +635,7 @@ document.getElementById("char-sel-btn").addEventListener("click",()=>{
   document.getElementById("btn-char-next").disabled=false;document.getElementById("char-err").textContent="";
 });
 document.getElementById("btn-char-next").addEventListener("click",()=>{
-  if(!selId){document.getElementById("char-err").textContent="Sélectionne un personnage d'abord.";return;}
+  if(!selId){document.getElementById("char-err").textContent="Sélectionne un animal d'abord.";return;}
   const ch=gc(selId);
   document.getElementById("reg-av").textContent=ch.av;
   document.getElementById("reg-char").textContent=ch.name;
@@ -654,7 +654,7 @@ document.getElementById("btn-register").addEventListener("click",async()=>{
   err.textContent="";
   const ch=gc(selId);
   player={nom,prenom,age,charId:selId};progress={};saveAll();
-  notifyLong(["🏀 **Nouvelle inscription**","Nom : "+nom+" | Prénom : "+prenom+" | Âge : "+age,"Personnage : "+ch.av+" "+ch.name]);
+  notifyLong(["🏀 **Nouvelle inscription**","Nom : "+nom+" | Prénom : "+prenom+" | Âge : "+age,"Animal : "+ch.av+" "+ch.name]);
   goHub();
 });
 
@@ -682,7 +682,7 @@ function lStatus(gid,level){
   const prev=progress[pk(gid,levels[idx-1])];
   return(prev&&prev.done)?"open":"locked";
 }
-/* CORRECTIF : la Zone d'Aomine ne s'affiche que si TOUS les jeux sont validés à 100%,
+/* CORRECTIF : l'enclos VIP ne s'affiche que si TOUS les jeux sont validés à 100%,
    et non plus simplement "joués" (.some). */
 function anyPlayed(){return GO.every(gid=>allDone(gid));}
 
@@ -699,10 +699,10 @@ function renderHub(){
   let zb=document.getElementById("zone-inline");
   if(!zb){zb=document.createElement("div");zb.id="zone-inline";document.getElementById("games-wrap").parentElement.appendChild(zb);}
   if(anyPlayed()){
-    zb.innerHTML='<div class="zone-card" style="cursor:pointer;" id="zone-inline-btn"><p class="zone-title">✨ Enclos VIP — Daiki Aomine</p><p class="zone-desc">🐣 Tu as fait éclore tous les œufs des deux jeux ! Envoie ton dossier d\'adoption à Aomine Daiki pour tenter le défi final.</p></div>';
+    zb.innerHTML='<div class="zone-card" style="cursor:pointer;" id="zone-inline-btn"><p class="zone-title">✨ Enclos VIP — Œuf Légendaire</p><p class="zone-desc">🐣 Tu as fait éclore tous les œufs des deux jeux ! Envoie ton dossier d\'adoption pour tenter le défi final.</p></div>';
     document.getElementById("zone-inline-btn").addEventListener("click",()=>show("screen-zone"));
   } else {
-    zb.innerHTML='<p style="color:var(--ink-soft);font-size:12px;margin-top:10px;font-weight:700;">🔒 Fais éclore tous les œufs des deux jeux (100%) pour débloquer l\'enclos VIP d\'Aomine Daiki.</p>';
+    zb.innerHTML='<p style="color:var(--ink-soft);font-size:12px;margin-top:10px;font-weight:700;">🔒 Fais éclore tous les œufs des deux jeux (100%) pour débloquer l\'enclos VIP de l\'Œuf Légendaire.</p>';
   }
 }
 document.getElementById("btn-zone-back").addEventListener("click",goHub);
@@ -740,7 +740,7 @@ function renderQ(){
   document.getElementById("q-fill").style.width=(cIdx/total)*100+"%";
   const c=document.getElementById("q-content");
   if(cGame==="trivia") c.innerHTML='<p class="qtext">'+item.q+'</p>';
-  else c.innerHTML='<p class="qquote">'+item.clue+'</p><p class="qwho">Qui a dit ça ?</p>';
+  else c.innerHTML='<p class="qquote">'+item.clue+'</p><p class="qwho">De quel animal s\'agit-il ?</p>';
   const ow=document.getElementById("q-opts");ow.innerHTML="";
   item.options.forEach((opt,i)=>{
     const b=document.createElement("button");b.className="opt";b.textContent=opt;
@@ -798,7 +798,7 @@ document.getElementById("btn-send-aomine").addEventListener("click",async()=>{
   const btn=document.getElementById("btn-send-aomine");
   btn.disabled=true;btn.textContent="Envoi en cours…";
   const ch=gc(player.charId);
-  const lines=["🔥 **Rapport complet — "+player.prenom+" "+player.nom+" ("+player.age+" ans)**","Personnage : "+ch.av+" "+ch.name,""];
+  const lines=["🔥 **Rapport complet — "+player.prenom+" "+player.nom+" ("+player.age+" ans)**","Animal : "+ch.av+" "+ch.name,""];
   GO.forEach(gid=>{LO[gid].forEach(lid=>{
     const e=progress[pk(gid,lid)];if(!e)return;
     lines.push("__"+e.gameLabel+" — "+e.levelLabel+"__ — "+e.score+"/"+e.total+(e.done?" ✅":" ❌"));
@@ -806,9 +806,9 @@ document.getElementById("btn-send-aomine").addEventListener("click",async()=>{
     lines.push("");
   });});
   lines.push("🔑 **Code d'accès : `"+CONFIG.FINAL_CODE+"`**");
-  lines.push("_(Transmets ce code au joueur si tu l'acceptes)_");
+  lines.push("_(Transmets ce code au joueur si la candidature est acceptée)_");
   const ok=await notifyLong(lines);
-  btn.disabled=false;btn.textContent="Envoyer mes réponses à Aomine";
+  btn.disabled=false;btn.textContent="Envoyer mon dossier d'adoption";
   const errEl=document.getElementById("zone-err");
   if(!ok){errEl.textContent="L'envoi a échoué. Réessaie.";return;}
   errEl.textContent="";show("screen-wait");
@@ -816,7 +816,7 @@ document.getElementById("btn-send-aomine").addEventListener("click",async()=>{
 document.getElementById("btn-unlock").addEventListener("click",()=>{
   const code=document.getElementById("access-code").value.trim();
   const err=document.getElementById("wait-err");
-  if(!code){err.textContent="Entre le code transmis par Aomine Daiki.";return;}
+  if(!code){err.textContent="Entre le code transmis pour l'enclos VIP.";return;}
   if(code.toUpperCase()!==CONFIG.FINAL_CODE.toUpperCase()){err.textContent="Code incorrect.";return;}
   err.textContent="";show("screen-fintro");
 });
@@ -871,11 +871,11 @@ async function finishF(){
   clearInterval(ftimer);const total=fq.length,passed=(fsc===total);
   show("screen-fres");
   const t=document.getElementById("fr-title"),tx=document.getElementById("fr-text");
-  if(passed){t.textContent="Félicitations. Tu as ta place parmi nous.";t.className="fr-title pass";tx.textContent="10 / 10. Aomine Daiki n'a rien à redire.";}
-  else{t.textContent="Seuls les génies peuvent avoir leur place.";t.className="fr-title fail";tx.textContent="Score final : "+fsc+" / "+total+".";}
+  if(passed){t.textContent="Félicitations. L'Œuf Légendaire est à toi.";t.className="fr-title pass";tx.textContent="10 / 10. Aucune erreur — l'enclos VIP s'ouvre devant toi.";}
+  else{t.textContent="Seuls les plus aguerris peuvent y prétendre.";t.className="fr-title fail";tx.textContent="Score final : "+fsc+" / "+total+".";}
   const st=document.getElementById("fr-send");st.textContent="Envoi…";
   const ch=gc(player.charId);
-  const lines=["⚡ **Défi final — "+player.prenom+" "+player.nom+"**","Personnage : "+ch.av+" "+ch.name,"Score : "+fsc+" / "+total+" — "+(passed?"✅ ACCEPTÉ":"❌ REFUSÉ"),""];
+  const lines=["⚡ **Défi final — "+player.prenom+" "+player.nom+"**","Animal : "+ch.av+" "+ch.name,"Score : "+fsc+" / "+total+" — "+(passed?"✅ ACCEPTÉ":"❌ REFUSÉ"),""];
   flog.forEach((r,idx)=>{lines.push((r.isCorrect?"✅":"❌")+" Q"+(idx+1)+" : "+r.question+" → "+(r.isCorrect?r.chosen:"Donnée : "+r.chosen+" | Bonne : "+r.correctAnswer));});
   const ok=await notifyLong(lines);
   st.textContent=ok?"Résultat final envoyé.":"Résultat non envoyé.";
